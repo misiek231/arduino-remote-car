@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebRTC Receiver</title>
+</head>
+
+<body>
+    <h2>Video Stream from Phone Camera</h2>
+    <video id="video" autoplay playsinline></video>
+
+    <script>
+        const videoElement = document.getElementById('video');
+        const signalingServer = new WebSocket('ws://192.168.0.213:8080'); // Replace with your signaling server IP
+        let peerConnection;
+
+        signalingServer.onmessage = (message) => {
+            const data = JSON.parse(message.data);
+
+            console.log(data);
+
+            if (data.type === 'offer') {
+                peerConnection = new RTCPeerConnection();
+
+                peerConnection.setRemoteDescription(new RTCSessionDescription(data));
+
+                peerConnection.createAnswer().then(answer => {
+                    peerConnection.setLocalDescription(answer);
+                    signalingServer.send(JSON.stringify({ type: 'answer', sdp: answer.sdp, sdpType: answer.type }));
+                });
+
+                peerConnection.ontrack = (event) => {
+                    console.log("ontrack");
+                    console.log(event);
+                    videoElement.srcObject = event.streams[0];
+                    videoElement.play().catch(e => console.error("Playback failed:", e));
+                };
+
+                peerConnection.onicecandidate = (event) => {
+                    if (event.candidate) {
+                        signalingServer.send(JSON.stringify({
+                            type: 'candidate',
+                            candidate: event.candidate,
+                        }));
+                    }
+                };
+            } else if (data.type === 'candidate') {
+                peerConnection.addIceCandidate(new RTCIceCandidate(data.candidate));
+            }
+        };
+
+        signalingServer.onopen = () => {
+            console.log('Connected to signaling server');
+        };
+    </script>
+</body>
+
+</html>
