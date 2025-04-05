@@ -28,13 +28,11 @@ wss.on('connection', (ws) => {
             });
         } else if (data.type === 'candidate') {
             // Forward ICE candidate to the other peer
-            if (data.candidate && data.candidate.candidate.includes("192.168.")) {
-                wss.clients.forEach(client => {
-                    if (client !== ws && client.readyState === WebSocket.OPEN) {
-                        client.send(JSON.stringify(data));
-                    }
-                });
-            }
+            wss.clients.forEach(client => {
+                if (client !== ws && client.readyState === WebSocket.OPEN) {
+                    client.send(JSON.stringify(data));
+                }
+            });
         }
     });
 

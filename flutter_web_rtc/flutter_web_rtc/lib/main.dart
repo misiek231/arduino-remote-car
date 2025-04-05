@@ -27,11 +27,9 @@ class VideoStreamingScreen extends StatefulWidget {
 class VideoStreamingScreenState extends State<VideoStreamingScreen> {
   late RTCPeerConnection _peerConnection;
   late MediaStream _localStream;
-  final RTCVideoRenderer _localRenderer = RTCVideoRenderer();
+  late RTCVideoRenderer _localRenderer;
 
-  final WebSocketChannel _channel = WebSocketChannel.connect(
-    Uri.parse("ws://192.168.0.213:8080"),
-  ); // Use the signaling server's IP
+  late WebSocketChannel _channel; // Use the signaling server's IP
 
   @override
   void initState() {
@@ -48,7 +46,10 @@ class VideoStreamingScreenState extends State<VideoStreamingScreen> {
   }
 
   Future<void> _initializeWebRTC() async {
+    _channel = WebSocketChannel.connect(Uri.parse("ws://192.168.0.213:8080"));
+    _localRenderer = RTCVideoRenderer();
     _localRenderer.initialize();
+
     // No ICE servers since it's a local network
     final Map<String, dynamic> configuration = {};
 
@@ -58,6 +59,8 @@ class VideoStreamingScreenState extends State<VideoStreamingScreen> {
       'video': {'facingMode': 'environment'},
       'audio': false, // Disable audio for now
     });
+
+    _localRenderer.srcObject = _localStream;
 
     _localStream.getTracks().forEach((track) {
       _peerConnection.addTrack(track, _localStream);
@@ -83,6 +86,35 @@ class VideoStreamingScreenState extends State<VideoStreamingScreen> {
         await _peerConnection.setRemoteDescription(
           RTCSessionDescription(data['sdp'], data['sdpType']),
         );
+      } else if (data['type'] == 'offer') {
+        print("recived offer");
+        _peerConnection = await createPeerConnection(configuration);
+
+        _peerConnection.onIceCandidate = (RTCIceCandidate candidate) {
+          _channel.sink.add(
+            jsonEncode({'type': 'candidate', 'candidate': candidate.toMap()}),
+          );
+        };
+
+        _localStream.getTracks().forEach((track) {
+          _peerConnection.addTrack(track, _localStream);
+        });
+
+        await _peerConnection.setRemoteDescription(
+          RTCSessionDescription(data['sdp'], data['sdpType']),
+        );
+
+        RTCSessionDescription answer = await _peerConnection.createAnswer();
+        _peerConnection.setLocalDescription(answer);
+
+        _channel.sink.add(
+          jsonEncode({
+            'type': 'answer',
+            'sdp': answer.sdp,
+            'sdpType': answer.type,
+          }),
+        );
+        print("end offer");
       } else if (data['type'] == 'candidate') {
         _peerConnection.addCandidate(
           RTCIceCandidate(
