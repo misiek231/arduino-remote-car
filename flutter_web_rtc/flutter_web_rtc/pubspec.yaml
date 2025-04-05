@@ -1,4 +1,4 @@
-name: flutter_web_rtc
+name: car_steer
 description: "A new Flutter project."
 publish_to: 'none'
 version: 0.1.0
@@ -9,13 +9,17 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_joystick: ^0.2.1
+  udp: 5.0.3
   flutter_webrtc: ^0.12.12
   web_socket_channel: ^3.0.2
-
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
+
+
 
 flutter:
   uses-material-design: true

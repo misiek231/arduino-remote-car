@@ -1,6 +1,6 @@
 {
-    "name": "flutter_web_rtc",
-    "short_name": "flutter_web_rtc",
+    "name": "car_steer",
+    "short_name": "car_steer",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

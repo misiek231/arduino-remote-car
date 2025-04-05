@@ -78,6 +78,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_joystick:
+    dependency: "direct main"
+    description:
+      name: flutter_joystick
+      sha256: "84178c47aee3080599b8b38c44be31a69d50358aaa8213222f7833ea2e1641a2"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.1"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -312,6 +320,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.0"
+  udp:
+    dependency: "direct main"
+    description:
+      name: udp
+      sha256: "50ea45d7ee80ad4c62de4ec0e8ed3ae65c36e9fe8cd0655a2bcd1503d2708e5a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.0.3"
   vector_math:
     dependency: transitive
     description:

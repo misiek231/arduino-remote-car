@@ -1,148 +1,154 @@
-import 'dart:convert';
+// car_control_page.dart
+
 import 'package:flutter/material.dart';
+import 'package:flutter_joystick/flutter_joystick.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
+import 'car_control_model.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'WebRTC Video Streaming',
-      home: VideoStreamingScreen(),
+      title: 'Car Control',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: const CarControlPage(),
     );
   }
 }
 
-class VideoStreamingScreen extends StatefulWidget {
-  const VideoStreamingScreen({super.key});
+class CarControlPage extends StatefulWidget {
+  const CarControlPage({super.key});
 
   @override
-  VideoStreamingScreenState createState() => VideoStreamingScreenState();
+  CarControlPageState createState() => CarControlPageState();
 }
 
-class VideoStreamingScreenState extends State<VideoStreamingScreen> {
-  late RTCPeerConnection _peerConnection;
-  late MediaStream _localStream;
-  late RTCVideoRenderer _localRenderer;
-
-  late WebSocketChannel _channel; // Use the signaling server's IP
+class CarControlPageState extends State<CarControlPage> {
+  late CarControlModel _carControlModel;
 
   @override
   void initState() {
     super.initState();
-    _initializeWebRTC();
+    _carControlModel = CarControlModel();
+    _carControlModel.initialize();
   }
 
   @override
   void dispose() {
-    _peerConnection.close();
-    _localRenderer.dispose();
-    _localStream.dispose();
+    _carControlModel.dispose();
     super.dispose();
   }
 
-  Future<void> _initializeWebRTC() async {
-    _channel = WebSocketChannel.connect(Uri.parse("ws://192.168.0.213:8080"));
-    _localRenderer = RTCVideoRenderer();
-    _localRenderer.initialize();
+  void _onJoystickMove(StickDragDetails details) {
+    _carControlModel.updateSteering(details.x);
+  }
 
-    // No ICE servers since it's a local network
-    final Map<String, dynamic> configuration = {};
+  void _onAccChanged(int clicked) {
+    _carControlModel.updateAcceleration(clicked);
+  }
 
-    _peerConnection = await createPeerConnection(configuration);
+  void _onGearChanged(String gear) {
+    _carControlModel.updateGear(gear);
+  }
 
-    _localStream = await navigator.mediaDevices.getUserMedia({
-      'video': {'facingMode': 'environment'},
-      'audio': false, // Disable audio for now
-    });
-
-    _localRenderer.srcObject = _localStream;
-
-    _localStream.getTracks().forEach((track) {
-      _peerConnection.addTrack(track, _localStream);
-    });
-
-    _peerConnection.onIceCandidate = (RTCIceCandidate candidate) {
-      _channel.sink.add(
-        jsonEncode({'type': 'candidate', 'candidate': candidate.toMap()}),
-      );
-    };
-
-    RTCSessionDescription offer = await _peerConnection.createOffer();
-    await _peerConnection.setLocalDescription(offer);
-
-    _channel.sink.add(
-      jsonEncode({'type': 'offer', 'sdp': offer.sdp, 'sdpType': offer.type}),
+  Widget _buildGearButton(String label, String gearChar) {
+    final isSelected = _carControlModel.selectedGear == gearChar;
+    return ElevatedButton(
+      onPressed: () => _onGearChanged(gearChar),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: isSelected ? Colors.blue : Colors.grey[700],
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      ),
+      child: Text(
+        label,
+        style: const TextStyle(fontSize: 18, color: Colors.white),
+      ),
     );
-
-    _channel.stream.listen((message) async {
-      Map<String, dynamic> data = jsonDecode(message);
-
-      if (data['type'] == 'answer') {
-        await _peerConnection.setRemoteDescription(
-          RTCSessionDescription(data['sdp'], data['sdpType']),
-        );
-      } else if (data['type'] == 'offer') {
-        print("recived offer");
-        _peerConnection = await createPeerConnection(configuration);
-
-        _peerConnection.onIceCandidate = (RTCIceCandidate candidate) {
-          _channel.sink.add(
-            jsonEncode({'type': 'candidate', 'candidate': candidate.toMap()}),
-          );
-        };
-
-        _localStream.getTracks().forEach((track) {
-          _peerConnection.addTrack(track, _localStream);
-        });
-
-        await _peerConnection.setRemoteDescription(
-          RTCSessionDescription(data['sdp'], data['sdpType']),
-        );
-
-        RTCSessionDescription answer = await _peerConnection.createAnswer();
-        _peerConnection.setLocalDescription(answer);
-
-        _channel.sink.add(
-          jsonEncode({
-            'type': 'answer',
-            'sdp': answer.sdp,
-            'sdpType': answer.type,
-          }),
-        );
-        print("end offer");
-      } else if (data['type'] == 'candidate') {
-        _peerConnection.addCandidate(
-          RTCIceCandidate(
-            data['candidate']['candidate'],
-            data['candidate']['sdpMid'],
-            data['candidate']['sdpMLineIndex'],
-          ),
-        );
-      }
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("WebRTC Video Streaming")),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: RTCVideoView(
-              _localRenderer,
-              mirror: true, // Mirror the video for the sender
-            ),
+      body: Stack(
+        children: [
+          // Video stream view
+          Positioned.fill(child: RTCVideoView(_carControlModel.localRenderer)),
+
+          // Joystick and control areas
+          Row(
+            children: [
+              Expanded(
+                flex: 1,
+                child: Container(
+                  color: Colors.grey[300]?.withValues(alpha: 0.1),
+                  child: JoystickArea(
+                    mode: JoystickMode.horizontal,
+                    listener: _onJoystickMove,
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Column(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: GestureDetector(
+                        onTapDown: (_) => _onAccChanged(-1), // Decelerate
+                        onTapUp: (_) => _onAccChanged(0), // Stop acceleration
+                        child: Container(
+                          color: Colors.white.withValues(alpha: 0.1),
+                          child: Center(
+                            child: Text(
+                              "Decelerate",
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: GestureDetector(
+                        onTapDown: (_) => _onAccChanged(1), // Accelerate
+                        onTapUp: (_) => _onAccChanged(0), // Stop acceleration
+                        child: Container(
+                          color: Colors.white.withValues(alpha: 0.1),
+                          child: Center(
+                            child: Text(
+                              "Accelerate",
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
-          SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: _initializeWebRTC,
-            child: Text("Start Streaming"),
+
+          // Gear buttons (Positioned in top-left corner)
+          Positioned(
+            top: 20,
+            left: 20,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildGearButton('1', 'v'),
+                SizedBox(height: 8),
+                _buildGearButton('2', 'b'),
+                SizedBox(height: 8),
+                _buildGearButton('N', 'n'),
+              ],
+            ),
           ),
         ],
       ),
