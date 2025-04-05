@@ -15,6 +15,14 @@ const int steeringDefaultPos = 90;
 const int engineDefaultSpeed = 100;
 const int gearDefaultPos = 90;
 
+// === Steering Constraints ===
+const int STEERING_MIN = 40;
+const int STEERING_MAX = 140;
+
+// === WiFi Configuration ===
+const char* WIFI_SSID = "---";
+const char* WIFI_PASSWORD = "---";
+
 // === Engine Offset Table ===
 #include <stdint.h>
 

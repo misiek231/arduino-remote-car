@@ -70,7 +70,7 @@ void processInput(const String& message) {
   int secondColon = input.indexOf(':', firstColon + 1);
 
   int steer = input.substring(0, firstColon).toInt();
-  steer = constrain(steer, 40, 140);
+  steer = constrain(steer, STEERING_MIN, STEERING_MAX);
 
   char engine = input.charAt(firstColon + 1);
   char gear = input.charAt(secondColon + 1);
@@ -118,10 +118,10 @@ Stream& getSerial() {
 // === WiFi setup ===
 void setupWiFi() {
   SendCommand("AT+RST", "Ready");
-  delay(5000);
+  delay(500);
   SendCommand("AT", "OK");
   SendCommand("AT+CWMODE=1", "OK");
-  SendCommand("AT+CWJAP=\"UPC2558138\",\"Mpuff7bpjeku\"", "OK");
+  SendCommand("AT+CWJAP=\"" + String(WIFI_SSID) + "\",\"" + String(WIFI_PASSWORD) + "\"", "OK");
   SendCommand("AT+CIFSR", "OK");
   SendCommand("AT+CIPMUX=1", "OK");
   SendCommand("AT+CIPSTART=0,\"UDP\",\"0.0.0.0\",4210,4210,0", "OK");
