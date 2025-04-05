@@ -1,14 +1,6 @@
 #include <Servo.h>
 #include <SoftwareSerial.h>
-
-// === Configuration ===
-#define TIMEOUT 20000 // ms
-#define USE_SOFT_SERIAL 0
-
-// === Hardware Pins ===
-#define STEERING_SERVO_PIN 9
-#define ENGINE_SERVO_PIN 10
-#define GEAR_SERVO_PIN 11
+#include "Config.h"
 
 #if USE_SOFT_SERIAL
 SoftwareSerial espSerial(2, 3); // RX, TX
@@ -19,15 +11,10 @@ Servo steeringServo;
 Servo engineServo;
 Servo gearServo;
 
-// === Defaults ===
-const int steeringDefaultPos = 90;
-const int engineDefaultSpeed = 100;
-const int gearDefaultPos = 90;
-String engineCurrValue = "c";
-
 // === Setup ===
 void setup() {
-  
+  setupConfig();
+
   Serial.begin(9600);
 
 #if USE_SOFT_SERIAL
@@ -82,13 +69,11 @@ void processInput(const String& message) {
   int firstColon = input.indexOf(':');
   int secondColon = input.indexOf(':', firstColon + 1);
 
-  String steerS = input.substring(0, firstColon);
-  int steer = steerS.toInt();
+  int steer = input.substring(0, firstColon).toInt();
   steer = constrain(steer, 40, 140);
-  String engine = input.substring(firstColon + 1, secondColon);
-  String gear = input.substring(secondColon + 1);
-  
 
+  char engine = input.charAt(firstColon + 1);
+  char gear = input.charAt(secondColon + 1);
 
 #if USE_SOFT_SERIAL
   Serial.print("Steer: "); Serial.println(steer);
@@ -101,30 +86,14 @@ void processInput(const String& message) {
   updateGear(gear);
 }
 
-void updateEngine(const String& value) {
-  if (value == "w") {
-    engineCurrValue = "w";
-    engineServo.write(engineDefaultSpeed + 50);
-  } else if (value == "s") {
-    engineCurrValue = "s";
-    engineServo.write(engineDefaultSpeed - 20);
-  } else if (value == "c") {
-    if (engineCurrValue == "w") {
-      engineServo.write(engineDefaultSpeed);
-    } else if (engineCurrValue == "s") {
-      engineServo.write(engineDefaultSpeed + 10);
-    }
-  }
+void updateEngine(char command) {
+  int offset = engineOffsetTable[command];
+  engineServo.write(engineDefaultSpeed + offset);
 }
 
-void updateGear(const String& value) {
-  if (value == "v") {
-    gearServo.write(gearDefaultPos + 50); // Gear 1
-  } else if (value == "b") {
-    gearServo.write(gearDefaultPos - 50); // Gear 2
-  } else {
-    gearServo.write(gearDefaultPos); // Neutral
-  }
+void updateGear(char command) {
+  int offset = gearOffsetTable[command];
+  gearServo.write(gearDefaultPos + offset);
 }
 
 // === Smoothly move servo ===
@@ -174,7 +143,7 @@ bool SendCommand(const String& cmd, const String& ack) {
 bool waitForAck(const String& keyword) {
   Stream& serialStream = getSerial();
   byte matched = 0;
-  long deadline = millis() + TIMEOUT;
+  long deadline = millis() + ESP_COMMAND_TIMEOUT;
 
   while (millis() < deadline) {
     if (serialStream.available()) {
