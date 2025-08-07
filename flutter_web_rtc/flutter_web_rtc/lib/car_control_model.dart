@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -9,9 +10,10 @@ class CarControlModel {
   late RTCVideoRenderer localRenderer;
   late RTCPeerConnection _peerConnection;
   late WebSocketChannel _channel;
+  Timer? _commandTimer;
 
-  int accHold = 0; // 0 is default - stopped
   int steerAngle = 90;
+  String accHold = "c"; // 0 is default - stopped
   String selectedGear = 'n'; // default to Neutral
 
   // Initialize WebRTC and UDP connections
@@ -51,33 +53,26 @@ class CarControlModel {
     );
   }
 
+  void startSendingCommands() {
+    const duration = Duration(milliseconds: 20); // 20ms interval
+    _commandTimer = Timer.periodic(duration, (timer) {
+      _udpService.sendCommand(steerAngle, accHold, selectedGear);
+    });
+  }
+
   // Update the current gear and send the command to the car
   void updateGear(String gear) {
     selectedGear = gear;
-    _sendCommand();
-  }
-
-  // Send the control command to the car
-  void _sendCommand() {
-    String acc = 'c'; // Default to 'c' for neutral
-    if (accHold == 1) {
-      acc = 's'; // Accelerate
-    } else if (accHold == -1) {
-      acc = 'w'; // Decelerate
-    }
-    _udpService.sendCommand(steerAngle, acc, selectedGear);
   }
 
   // Change the steering angle based on joystick input
   void updateSteering(double x) {
     steerAngle = mapValue(-x, -1, 1, steerMinAngle, steerMaxAngle);
-    _sendCommand();
   }
 
   // Acceleration change
-  void updateAcceleration(int clicked) {
-    accHold = clicked;
-    _sendCommand();
+  void updateAcceleration(String acc) {
+    accHold = acc;
   }
 
   int mapValue(
@@ -91,6 +86,7 @@ class CarControlModel {
   }
 
   void dispose() {
+    _commandTimer?.cancel();
     _udpService.close();
   }
 }

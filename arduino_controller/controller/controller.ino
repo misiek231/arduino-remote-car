@@ -11,6 +11,25 @@ Servo steeringServo;
 Servo engineServo;
 Servo gearServo;
 
+// === Engine easing state machine ===
+enum EngineState {
+  ENGINE_IDLE,
+  ENGINE_PUSHING,
+  ENGINE_RETRACTING
+};
+
+struct EngineEase {
+  EngineState state = ENGINE_IDLE;
+  unsigned long stateStartTime = 0;
+  char currentCommand = 'c';
+};
+
+EngineEase engineEase;
+const int ENGINE_PUSH_DURATION = 100; // milliseconds
+
+unsigned long lastCommandTime = 0;
+const unsigned long COMMAND_TIMEOUT = 200; // ms
+
 // === Setup ===
 void setup() {
   setupConfig();
@@ -52,11 +71,22 @@ void loop() {
     }
   }
 
-  if (!stringReady) return;
+  if (stringReady) {
+#if USE_SOFT_SERIAL
+    Serial.println(incomingString);
+#endif
+    lastCommandTime = millis();  // Update timestamp on new command
+    processInput(incomingString);
+    incomingString = "";
+    stringReady = false;
+  }
 
-  processInput(incomingString);
-  incomingString = "";
-  stringReady = false;
+  updateEngineEase(); // Non-blocking servo retract logic
+
+    // Auto-stop if no command for over 200ms
+  if (millis() - lastCommandTime > COMMAND_TIMEOUT) {
+      updateEngine('c'); // Stop the engine
+  }
 }
 
 // === Process incoming command ===
@@ -86,17 +116,41 @@ void processInput(const String& message) {
   updateGear(gear);
 }
 
+// === Update engine with push-and-retract easing ===
 void updateEngine(char command) {
-  int offset = engineOffsetTable[command];
-  engineServo.write(engineDefaultSpeed + offset);
+  if (command == engineEase.currentCommand) return;
+  engineEase.currentCommand = command;
+
+  if (command == 'w' || command == 's') {
+    int pushOffset = engineOffsetTable[command];
+    engineServo.write(engineDefaultSpeed + pushOffset);
+
+    engineEase.state = ENGINE_PUSHING;
+    engineEase.stateStartTime = millis();
+  } else { // 'c' or unknown
+    engineServo.write(engineDefaultSpeed);
+    engineEase.state = ENGINE_IDLE;
+  }
 }
 
+void updateEngineEase() {
+  if (engineEase.state != ENGINE_PUSHING) return;
+  if (millis() - engineEase.stateStartTime < ENGINE_PUSH_DURATION) return;
+
+  char cmd = engineEase.currentCommand;
+  int retractOffset = engineEaseTargetOffsetTable[cmd];
+
+  engineServo.write(engineDefaultSpeed + retractOffset);
+  engineEase.state = ENGINE_RETRACTING;
+}
+
+// === Update gear servo ===
 void updateGear(char command) {
   int offset = gearOffsetTable[command];
   gearServo.write(gearDefaultPos + offset);
 }
 
-// === Smoothly move servo ===
+// === Smoothly move servo (used for steering) ===
 void smoothMoveServo(Servo& servo, int target) {
   int current = servo.read();
   while (current != target) {
@@ -117,14 +171,26 @@ Stream& getSerial() {
 
 // === WiFi setup ===
 void setupWiFi() {
-  SendCommand("AT+RST", "Ready");
-  delay(500);
-  SendCommand("AT", "OK");
-  SendCommand("AT+CWMODE=1", "OK");
-  SendCommand("AT+CWJAP=\"" + String(WIFI_SSID) + "\",\"" + String(WIFI_PASSWORD) + "\"", "OK");
-  SendCommand("AT+CIFSR", "OK");
-  SendCommand("AT+CIPMUX=1", "OK");
-  SendCommand("AT+CIPSTART=0,\"UDP\",\"0.0.0.0\",4210,4210,0", "OK");
+
+    // Check if already connected to the correct network
+  if (!SendCommand("AT", "OK")) {
+    SendCommand("AT+RST", "Ready");
+    delay(500);
+    SendCommand("AT", "OK");
+  }
+
+  // Check if already connected
+  if (!SendCommand("AT+CWJAP?", WIFI_SSID)) {
+    SendCommand("AT+CWMODE=1", "OK");
+    SendCommand("AT+CWJAP=\"" + String(WIFI_SSID) + "\",\"" + String(WIFI_PASSWORD) + "\"", "OK");
+  }
+
+  SendCommand("AT+CIFSR", "OK"); // returns current ip
+
+  if(!SendCommand("AT+CIPSTATUS", "+CIPSTATUS:0")) {
+    SendCommand("AT+CIPMUX=0", "OK");
+    SendCommand("AT+CIPSTART=\"UDP\",\"0.0.0.0\",4210,4210,0", "OK");
+  }
 
 #if USE_SOFT_SERIAL
   Serial.println("WiFi setup complete.");
@@ -142,23 +208,28 @@ bool SendCommand(const String& cmd, const String& ack) {
 
 bool waitForAck(const String& keyword) {
   Stream& serialStream = getSerial();
-  byte matched = 0;
+  String response = "";
   long deadline = millis() + ESP_COMMAND_TIMEOUT;
 
   while (millis() < deadline) {
-    if (serialStream.available()) {
+    while (serialStream.available()) {
       char ch = serialStream.read();
-      if (ch == keyword[matched]) {
-        if (++matched == keyword.length()) {
+      response += ch;
+
+      // Optional debug
+       // Serial.print(ch);
+
+      if (response.indexOf(keyword) != -1 || response.indexOf("ALREADY CONNECTED") != -1) {
 #if USE_SOFT_SERIAL
-          Serial.println(keyword);
+        Serial.println("Matched: " + keyword);
 #endif
-          return true;
-        }
-      } else {
-        matched = 0; // Reset on mismatch
+        return true;
       }
     }
   }
+#if USE_SOFT_SERIAL
+  Serial.println("Timeout or no match: " + keyword + " recived:" + response);
+#endif
   return false;
 }
+

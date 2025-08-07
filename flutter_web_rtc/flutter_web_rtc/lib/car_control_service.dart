@@ -16,7 +16,6 @@ class UdpService {
     String selectedGear,
   ) async {
     String command = "$steerAngle:$accHold:$selectedGear\n";
-    print("Command: $command");
 
     final data = command.codeUnits;
     final address = Endpoint.unicast(

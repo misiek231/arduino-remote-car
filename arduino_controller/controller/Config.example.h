@@ -23,15 +23,21 @@ const int STEERING_MAX = 140;
 const char* WIFI_SSID = "---";
 const char* WIFI_PASSWORD = "---";
 
-// === Engine Offset Table ===
+// === Engine Offset Tables ===
 #include <stdint.h>
 
-int8_t engineOffsetTable[128] = { 0 };  // Initialize all to 0
+int8_t engineOffsetTable[128] = { 0 };             // Push offset
+int8_t engineEaseTargetOffsetTable[128] = { 0 };   // Retract offset
 
 inline void setupEngineOffsets() {
-  engineOffsetTable['w'] = 50;   // Forward
-  engineOffsetTable['s'] = -20;  // Reverse
-  engineOffsetTable['c'] = 0;    // Coast
+  engineOffsetTable['w'] = 30;    // Push forward
+  engineEaseTargetOffsetTable['w'] = 10; // Retract forward
+
+  engineOffsetTable['s'] = -20;   // Push reverse
+  engineEaseTargetOffsetTable['s'] = -5;  // Retract reverse
+
+  engineOffsetTable['c'] = 0;
+  engineEaseTargetOffsetTable['c'] = 0;
 }
 
 // === Gear Mapping Table ===
