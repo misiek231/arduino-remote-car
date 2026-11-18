@@ -1,0 +1,234 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1460" viewBox="0 0 1800 1460">
+<rect width="1800" height="1460" fill="#f5f8fb"/>
+<text x="48" y="53" font-family="Arial,sans-serif" font-size="30" fill="#17243a" font-weight="bold">SAMOCHÓD RC · SCHEMAT POŁĄCZEŃ</text>
+<text x="48" y="82" font-family="Arial,sans-serif" font-size="17" fill="#52677a" font-weight="normal">Wersja wstępna · jednakowe etykiety sieci oznaczają połączenie elektryczne</text>
+<text x="48" y="108" font-family="Arial,sans-serif" font-size="15" fill="#9a5417" font-weight="normal">Elementy opisane jako „do ustalenia” nie są gotowe do ostatecznego montażu.</text>
+<rect x="40" y="140" width="510" height="170" rx="12" fill="#ffffff" stroke="#97a9bc" stroke-width="2"/>
+<rect x="40" y="140" width="510" height="42" rx="11" fill="#eaf1f7"/>
+<text x="55" y="167" font-family="Arial,sans-serif" font-size="18" fill="#17243a" font-weight="bold">PAKIET 2S + BMS</text>
+<text x="55" y="296" font-family="Arial,sans-serif" font-size="13" fill="#637589" font-weight="normal">Zaciski ogniw podłączyć według konkretnego BMS.</text>
+<text x="58" y="215" font-family="Arial,sans-serif" font-size="15" fill="#17243a" font-weight="normal">P+</text>
+<line x1="168" y1="210" x2="218" y2="210" stroke="#bc5546" stroke-width="2.5"/>
+<circle cx="218" cy="210" r="3" fill="#bc5546"/>
+<text x="227" y="215" font-family="Arial,sans-serif" font-size="14" fill="#bc5546" font-weight="bold">BAT+</text>
+<text x="58" y="256" font-family="Arial,sans-serif" font-size="15" fill="#17243a" font-weight="normal">P−</text>
+<line x1="168" y1="251" x2="218" y2="251" stroke="#176b54" stroke-width="2.5"/>
+<circle cx="218" cy="251" r="3" fill="#176b54"/>
+<text x="227" y="256" font-family="Arial,sans-serif" font-size="14" fill="#176b54" font-weight="bold">GND</text>
+<rect x="40" y="340" width="510" height="185" rx="12" fill="#ffffff" stroke="#97a9bc" stroke-width="2"/>
+<rect x="40" y="340" width="510" height="42" rx="11" fill="#eaf1f7"/>
+<text x="55" y="367" font-family="Arial,sans-serif" font-size="18" fill="#17243a" font-weight="bold">PŁYTKA ŁADOWANIA USB-C</text>
+<text x="55" y="511" font-family="Arial,sans-serif" font-size="13" fill="#637589" font-weight="normal">Tor ładowania i tryb bez płytki przycisków: potwierdzić.</text>
+<text x="58" y="415" font-family="Arial,sans-serif" font-size="15" fill="#17243a" font-weight="normal">Bateria +</text>
+<line x1="168" y1="410" x2="218" y2="410" stroke="#bc5546" stroke-width="2.5"/>
+<circle cx="218" cy="410" r="3" fill="#bc5546"/>
+<text x="227" y="415" font-family="Arial,sans-serif" font-size="14" fill="#bc5546" font-weight="bold">BAT+</text>
+<text x="58" y="454" font-family="Arial,sans-serif" font-size="15" fill="#17243a" font-weight="normal">Bateria −</text>
+<line x1="168" y1="449" x2="218" y2="449" stroke="#176b54" stroke-width="2.5"/>
+<circle cx="218" cy="449" r="3" fill="#176b54"/>
+<text x="227" y="454" font-family="Arial,sans-serif" font-size="14" fill="#176b54" font-weight="bold">GND</text>
+<text x="58" y="487" font-family="Arial,sans-serif" font-size="14" fill="#9a5417" font-weight="normal">PWM1 / PWM2 / STAT / P_ON: nieustalone</text>
+<rect x="40" y="555" width="510" height="245" rx="12" fill="#ffffff" stroke="#97a9bc" stroke-width="2"/>
+<rect x="40" y="555" width="510" height="42" rx="11" fill="#eaf1f7"/>
+<text x="55" y="582" font-family="Arial,sans-serif" font-size="18" fill="#17243a" font-weight="bold">WŁĄCZNIK JAZDY I ZABEZPIECZENIE</text>
+<text x="55" y="786" font-family="Arial,sans-serif" font-size="13" fill="#637589" font-weight="normal">Wartości i fizyczną lokalizację dobrać po pomiarach.</text>
+<circle cx="60" cy="633" r="3" fill="#bc5546"/>
+<line x1="60" y1="633" x2="95" y2="633" stroke="#bc5546" stroke-width="2.5"/>
+<text x="102" y="638" font-family="Arial,sans-serif" font-size="14" fill="#bc5546" font-weight="bold">BAT+</text>
+<line x1="160" y1="633" x2="197" y2="633" stroke="#bc5546" stroke-width="3"/>
+<rect x="197" y="619" width="86" height="28" fill="#fff" stroke="#bc5546" stroke-width="2"/>
+<text x="208" y="638" font-family="Arial,sans-serif" font-size="14" fill="#bc5546" font-weight="normal">FUSE ?</text>
+<line x1="283" y1="633" x2="320" y2="633" stroke="#bc5546" stroke-width="3"/><circle cx="320" cy="633" r="4" fill="#bc5546"/><circle cx="365" cy="633" r="4" fill="#bc5546"/><line x1="320" y1="633" x2="358" y2="616" stroke="#bc5546" stroke-width="3"/><line x1="365" y1="633" x2="390" y2="633" stroke="#bc5546" stroke-width="3"/>
+<text x="398" y="638" font-family="Arial,sans-serif" font-size="14" fill="#bc5546" font-weight="bold">VBAT</text>
+<text x="60" y="700" font-family="Arial,sans-serif" font-size="14" fill="#17243a" font-weight="normal">Gałąź ładowania pozostaje przed wyłącznikiem jazdy.</text>
+<text x="60" y="727" font-family="Arial,sans-serif" font-size="14" fill="#17243a" font-weight="normal">Ostateczny schemat zależy od złącz płytki ładowania.</text>
+<rect x="40" y="830" width="510" height="210" rx="12" fill="#ffffff" stroke="#97a9bc" stroke-width="2"/>
+<rect x="40" y="830" width="510" height="42" rx="11" fill="#eaf1f7"/>
+<text x="55" y="857" font-family="Arial,sans-serif" font-size="18" fill="#17243a" font-weight="bold">PRZETWORNICA 5 V</text>
+<text x="55" y="1026" font-family="Arial,sans-serif" font-size="13" fill="#637589" font-weight="normal">XL4015: poniżej 8 V poza specyfikacją producenta.</text>
+<text x="58" y="905" font-family="Arial,sans-serif" font-size="15" fill="#17243a" font-weight="normal">IN+</text>
+<line x1="168" y1="900" x2="218" y2="900" stroke="#bc5546" stroke-width="2.5"/>
+<circle cx="218" cy="900" r="3" fill="#bc5546"/>
+<text x="227" y="905" font-family="Arial,sans-serif" font-size="14" fill="#bc5546" font-weight="bold">VBAT</text>
+<text x="58" y="940" font-family="Arial,sans-serif" font-size="15" fill="#17243a" font-weight="normal">IN− / OUT−</text>
+<line x1="168" y1="935" x2="218" y2="935" stroke="#176b54" stroke-width="2.5"/>
+<circle cx="218" cy="935" r="3" fill="#176b54"/>
+<text x="227" y="940" font-family="Arial,sans-serif" font-size="14" fill="#176b54" font-weight="bold">GND</text>
+<text x="58" y="975" font-family="Arial,sans-serif" font-size="15" fill="#17243a" font-weight="normal">OUT+</text>
+<line x1="168" y1="970" x2="218" y2="970" stroke="#c17a22" stroke-width="2.5"/>
+<circle cx="218" cy="970" r="3" fill="#c17a22"/>
+<text x="227" y="975" font-family="Arial,sans-serif" font-size="14" fill="#c17a22" font-weight="bold">5V</text>
+<rect x="635" y="140" width="510" height="380" rx="12" fill="#ffffff" stroke="#97a9bc" stroke-width="2"/>
+<rect x="635" y="140" width="510" height="42" rx="11" fill="#eaf1f7"/>
+<text x="650" y="167" font-family="Arial,sans-serif" font-size="18" fill="#17243a" font-weight="bold">ESP32-S3 · STEROWNIK</text>
+<text x="650" y="506" font-family="Arial,sans-serif" font-size="13" fill="#637589" font-weight="normal">GPIO serw i ADC: wybrać po sprawdzeniu pinoutu.</text>
+<text x="653" y="208" font-family="Arial,sans-serif" font-size="15" fill="#17243a" font-weight="normal">5V / VIN</text>
+<line x1="763" y1="203" x2="813" y2="203" stroke="#c17a22" stroke-width="2.5"/>
+<circle cx="813" cy="203" r="3" fill="#c17a22"/>
+<text x="822" y="208" font-family="Arial,sans-serif" font-size="14" fill="#c17a22" font-weight="bold">5V</text>
+<text x="653" y="242" font-family="Arial,sans-serif" font-size="15" fill="#17243a" font-weight="normal">GND</text>
+<line x1="763" y1="237" x2="813" y2="237" stroke="#176b54" stroke-width="2.5"/>
+<circle cx="813" cy="237" r="3" fill="#176b54"/>
+<text x="822" y="242" font-family="Arial,sans-serif" font-size="14" fill="#176b54" font-weight="bold">GND</text>
+<text x="653" y="276" font-family="Arial,sans-serif" font-size="15" fill="#17243a" font-weight="normal">3V3</text>
+<line x1="763" y1="271" x2="813" y2="271" stroke="#9861a8" stroke-width="2.5"/>
+<circle cx="813" cy="271" r="3" fill="#9861a8"/>
+<text x="822" y="276" font-family="Arial,sans-serif" font-size="14" fill="#9861a8" font-weight="bold">3V3</text>
+<text x="653" y="310" font-family="Arial,sans-serif" font-size="15" fill="#17243a" font-weight="normal">GPIO 8</text>
+<line x1="763" y1="305" x2="813" y2="305" stroke="#386faf" stroke-width="2.5"/>
+<circle cx="813" cy="305" r="3" fill="#386faf"/>
+<text x="822" y="310" font-family="Arial,sans-serif" font-size="14" fill="#386faf" font-weight="bold">OLED_SDA</text>
+<text x="653" y="344" font-family="Arial,sans-serif" font-size="15" fill="#17243a" font-weight="normal">GPIO 9</text>
+<line x1="763" y1="339" x2="813" y2="339" stroke="#386faf" stroke-width="2.5"/>
+<circle cx="813" cy="339" r="3" fill="#386faf"/>
+<text x="822" y="344" font-family="Arial,sans-serif" font-size="14" fill="#386faf" font-weight="bold">OLED_SCL</text>
+<text x="653" y="378" font-family="Arial,sans-serif" font-size="15" fill="#17243a" font-weight="normal">GPIO 7</text>
+<line x1="763" y1="373" x2="813" y2="373" stroke="#386faf" stroke-width="2.5"/>
+<circle cx="813" cy="373" r="3" fill="#386faf"/>
+<text x="822" y="378" font-family="Arial,sans-serif" font-size="14" fill="#386faf" font-weight="bold">MOTOR_CTL</text>
+<text x="653" y="412" font-family="Arial,sans-serif" font-size="15" fill="#17243a" font-weight="normal">GPIO 6</text>
+<line x1="763" y1="407" x2="813" y2="407" stroke="#386faf" stroke-width="2.5"/>
+<circle cx="813" cy="407" r="3" fill="#386faf"/>
+<text x="822" y="412" font-family="Arial,sans-serif" font-size="14" fill="#386faf" font-weight="bold">FOUT_ADC</text>
+<text x="653" y="446" font-family="Arial,sans-serif" font-size="15" fill="#17243a" font-weight="normal">GPIO ?</text>
+<line x1="763" y1="441" x2="813" y2="441" stroke="#386faf" stroke-width="2.5"/>
+<circle cx="813" cy="441" r="3" fill="#386faf"/>
+<text x="822" y="446" font-family="Arial,sans-serif" font-size="14" fill="#386faf" font-weight="bold">SERVO_1 / SERVO_2</text>
+<text x="653" y="480" font-family="Arial,sans-serif" font-size="15" fill="#17243a" font-weight="normal">ADC ?</text>
+<line x1="763" y1="475" x2="813" y2="475" stroke="#386faf" stroke-width="2.5"/>
+<circle cx="813" cy="475" r="3" fill="#386faf"/>
+<text x="822" y="480" font-family="Arial,sans-serif" font-size="14" fill="#386faf" font-weight="bold">VBAT_ADC</text>
+<rect x="635" y="550" width="510" height="240" rx="12" fill="#ffffff" stroke="#97a9bc" stroke-width="2"/>
+<rect x="635" y="550" width="510" height="42" rx="11" fill="#eaf1f7"/>
+<text x="650" y="577" font-family="Arial,sans-serif" font-size="18" fill="#17243a" font-weight="bold">INTERFEJS PWM · 2N2222A</text>
+<text x="650" y="776" font-family="Arial,sans-serif" font-size="13" fill="#637589" font-weight="normal">B/E/C potwierdzić dla rzeczywistego tranzystora.</text>
+<circle cx="655" cy="607" r="3" fill="#386faf"/>
+<line x1="655" y1="607" x2="690" y2="607" stroke="#386faf" stroke-width="2.5"/>
+<text x="697" y="612" font-family="Arial,sans-serif" font-size="14" fill="#386faf" font-weight="bold">MOTOR_CTL</text>
+<line x1="800" y1="607" x2="825" y2="607" stroke="#386faf" stroke-width="2.5"/><rect x="825" y="594" width="75" height="26" fill="#fff" stroke="#386faf" stroke-width="2"/>
+<text x="833" y="612" font-family="Arial,sans-serif" font-size="14" fill="#386faf" font-weight="normal">10 kΩ</text>
+<line x1="900" y1="607" x2="950" y2="607" stroke="#386faf" stroke-width="2.5"/><circle cx="950" cy="607" r="4" fill="#386faf"/>
+<line x1="950" y1="607" x2="995" y2="607" stroke="#17243a" stroke-width="2"/><line x1="995" y1="580" x2="995" y2="634" stroke="#17243a" stroke-width="3"/><line x1="995" y1="589" x2="1030" y2="565" stroke="#17243a" stroke-width="2"/><line x1="995" y1="625" x2="1030" y2="649" stroke="#17243a" stroke-width="2"/>
+<text x="1035" y="568" font-family="Arial,sans-serif" font-size="14" fill="#386faf" font-weight="normal">C → MOTOR_PWM</text>
+<text x="1035" y="655" font-family="Arial,sans-serif" font-size="14" fill="#176b54" font-weight="normal">E → GND</text>
+<line x1="950" y1="607" x2="950" y2="645" stroke="#17243a" stroke-width="2"/><rect x="932" y="645" width="36" height="58" fill="#fff" stroke="#17243a" stroke-width="2"/><line x1="950" y1="703" x2="950" y2="730" stroke="#17243a" stroke-width="2"/>
+<text x="982" y="679" font-family="Arial,sans-serif" font-size="14" fill="#17243a" font-weight="normal">100 kΩ</text>
+<text x="982" y="733" font-family="Arial,sans-serif" font-size="14" fill="#176b54" font-weight="bold">GND</text>
+<rect x="635" y="820" width="510" height="220" rx="12" fill="#ffffff" stroke="#97a9bc" stroke-width="2"/>
+<rect x="635" y="820" width="510" height="42" rx="11" fill="#eaf1f7"/>
+<text x="650" y="847" font-family="Arial,sans-serif" font-size="18" fill="#17243a" font-weight="bold">POMIAR BATERII</text>
+<text x="650" y="1026" font-family="Arial,sans-serif" font-size="13" fill="#637589" font-weight="normal">Pomiar napięcia nie jest dokładnym pomiarem procentu.</text>
+<text x="653" y="890" font-family="Arial,sans-serif" font-size="15" fill="#17243a" font-weight="normal">Wejście</text>
+<line x1="763" y1="885" x2="813" y2="885" stroke="#bc5546" stroke-width="2.5"/>
+<circle cx="813" cy="885" r="3" fill="#bc5546"/>
+<text x="822" y="890" font-family="Arial,sans-serif" font-size="14" fill="#bc5546" font-weight="bold">VBAT</text>
+<text x="653" y="925" font-family="Arial,sans-serif" font-size="15" fill="#17243a" font-weight="normal">Masa</text>
+<line x1="763" y1="920" x2="813" y2="920" stroke="#176b54" stroke-width="2.5"/>
+<circle cx="813" cy="920" r="3" fill="#176b54"/>
+<text x="822" y="925" font-family="Arial,sans-serif" font-size="14" fill="#176b54" font-weight="bold">GND</text>
+<text x="653" y="960" font-family="Arial,sans-serif" font-size="15" fill="#17243a" font-weight="normal">Do ESP</text>
+<line x1="763" y1="955" x2="813" y2="955" stroke="#386faf" stroke-width="2.5"/>
+<circle cx="813" cy="955" r="3" fill="#386faf"/>
+<text x="822" y="960" font-family="Arial,sans-serif" font-size="14" fill="#386faf" font-weight="bold">VBAT_ADC</text>
+<text x="653" y="995" font-family="Arial,sans-serif" font-size="14" fill="#9a5417" font-weight="normal">Dzielnik, filtr i ochrona przy wyłączonym ESP: dobrać.</text>
+<rect x="1230" y="140" width="510" height="235" rx="12" fill="#ffffff" stroke="#97a9bc" stroke-width="2"/>
+<rect x="1230" y="140" width="510" height="42" rx="11" fill="#eaf1f7"/>
+<text x="1245" y="167" font-family="Arial,sans-serif" font-size="18" fill="#17243a" font-weight="bold">SILNIK Z MASAŻERA</text>
+<text x="1245" y="361" font-family="Arial,sans-serif" font-size="13" fill="#637589" font-weight="normal">M+ to zasilanie. NC pozostawione niepodłączone.</text>
+<text x="1248" y="210" font-family="Arial,sans-serif" font-size="15" fill="#17243a" font-weight="normal">M+</text>
+<line x1="1358" y1="205" x2="1408" y2="205" stroke="#bc5546" stroke-width="2.5"/>
+<circle cx="1408" cy="205" r="3" fill="#bc5546"/>
+<text x="1417" y="210" font-family="Arial,sans-serif" font-size="14" fill="#bc5546" font-weight="bold">VBAT</text>
+<text x="1248" y="246" font-family="Arial,sans-serif" font-size="15" fill="#17243a" font-weight="normal">GN</text>
+<line x1="1358" y1="241" x2="1408" y2="241" stroke="#176b54" stroke-width="2.5"/>
+<circle cx="1408" cy="241" r="3" fill="#176b54"/>
+<text x="1417" y="246" font-family="Arial,sans-serif" font-size="14" fill="#176b54" font-weight="bold">GND</text>
+<text x="1248" y="282" font-family="Arial,sans-serif" font-size="15" fill="#17243a" font-weight="normal">PWM</text>
+<line x1="1358" y1="277" x2="1408" y2="277" stroke="#386faf" stroke-width="2.5"/>
+<circle cx="1408" cy="277" r="3" fill="#386faf"/>
+<text x="1417" y="282" font-family="Arial,sans-serif" font-size="14" fill="#386faf" font-weight="bold">MOTOR_PWM</text>
+<text x="1248" y="318" font-family="Arial,sans-serif" font-size="15" fill="#17243a" font-weight="normal">FOUT</text>
+<line x1="1358" y1="313" x2="1408" y2="313" stroke="#386faf" stroke-width="2.5"/>
+<circle cx="1408" cy="313" r="3" fill="#386faf"/>
+<text x="1417" y="318" font-family="Arial,sans-serif" font-size="14" fill="#386faf" font-weight="bold">FOUT_RAW</text>
+<rect x="1230" y="405" width="510" height="150" rx="12" fill="#ffffff" stroke="#97a9bc" stroke-width="2"/>
+<rect x="1230" y="405" width="510" height="42" rx="11" fill="#eaf1f7"/>
+<text x="1245" y="432" font-family="Arial,sans-serif" font-size="18" fill="#17243a" font-weight="bold">TOR POMIARU FOUT</text>
+<text x="1245" y="541" font-family="Arial,sans-serif" font-size="13" fill="#637589" font-weight="normal">Dopasowanie i ochronę przed przepięciami zweryfikować.</text>
+<text x="1248" y="475" font-family="Arial,sans-serif" font-size="15" fill="#17243a" font-weight="normal">Wejście</text>
+<line x1="1358" y1="470" x2="1408" y2="470" stroke="#386faf" stroke-width="2.5"/>
+<circle cx="1408" cy="470" r="3" fill="#386faf"/>
+<text x="1417" y="475" font-family="Arial,sans-serif" font-size="14" fill="#386faf" font-weight="bold">FOUT_RAW</text>
+<text x="1248" y="510" font-family="Arial,sans-serif" font-size="15" fill="#17243a" font-weight="normal">Wyjście</text>
+<line x1="1358" y1="505" x2="1408" y2="505" stroke="#386faf" stroke-width="2.5"/>
+<circle cx="1408" cy="505" r="3" fill="#386faf"/>
+<text x="1417" y="510" font-family="Arial,sans-serif" font-size="14" fill="#386faf" font-weight="bold">FOUT_ADC</text>
+<rect x="1230" y="585" width="510" height="195" rx="12" fill="#ffffff" stroke="#97a9bc" stroke-width="2"/>
+<rect x="1230" y="585" width="510" height="42" rx="11" fill="#eaf1f7"/>
+<text x="1245" y="612" font-family="Arial,sans-serif" font-size="18" fill="#17243a" font-weight="bold">OLED · I²C</text>
+<text x="1245" y="766" font-family="Arial,sans-serif" font-size="13" fill="#637589" font-weight="normal">Połączenie i działanie sprawdzone.</text>
+<text x="1248" y="650" font-family="Arial,sans-serif" font-size="15" fill="#17243a" font-weight="normal">VCC</text>
+<line x1="1358" y1="645" x2="1408" y2="645" stroke="#9861a8" stroke-width="2.5"/>
+<circle cx="1408" cy="645" r="3" fill="#9861a8"/>
+<text x="1417" y="650" font-family="Arial,sans-serif" font-size="14" fill="#9861a8" font-weight="bold">3V3</text>
+<text x="1248" y="681" font-family="Arial,sans-serif" font-size="15" fill="#17243a" font-weight="normal">GND</text>
+<line x1="1358" y1="676" x2="1408" y2="676" stroke="#176b54" stroke-width="2.5"/>
+<circle cx="1408" cy="676" r="3" fill="#176b54"/>
+<text x="1417" y="681" font-family="Arial,sans-serif" font-size="14" fill="#176b54" font-weight="bold">GND</text>
+<text x="1248" y="712" font-family="Arial,sans-serif" font-size="15" fill="#17243a" font-weight="normal">SDA</text>
+<line x1="1358" y1="707" x2="1408" y2="707" stroke="#386faf" stroke-width="2.5"/>
+<circle cx="1408" cy="707" r="3" fill="#386faf"/>
+<text x="1417" y="712" font-family="Arial,sans-serif" font-size="14" fill="#386faf" font-weight="bold">OLED_SDA</text>
+<text x="1248" y="743" font-family="Arial,sans-serif" font-size="15" fill="#17243a" font-weight="normal">SCL</text>
+<line x1="1358" y1="738" x2="1408" y2="738" stroke="#386faf" stroke-width="2.5"/>
+<circle cx="1408" cy="738" r="3" fill="#386faf"/>
+<text x="1417" y="743" font-family="Arial,sans-serif" font-size="14" fill="#386faf" font-weight="bold">OLED_SCL</text>
+<rect x="1230" y="810" width="510" height="235" rx="12" fill="#ffffff" stroke="#97a9bc" stroke-width="2"/>
+<rect x="1230" y="810" width="510" height="42" rx="11" fill="#eaf1f7"/>
+<text x="1245" y="837" font-family="Arial,sans-serif" font-size="18" fill="#17243a" font-weight="bold">SERWA SG90 × 2</text>
+<text x="1245" y="1031" font-family="Arial,sans-serif" font-size="13" fill="#637589" font-weight="normal">Piny sygnałów i obsługę 3,3 V potwierdzić w teście.</text>
+<text x="1248" y="880" font-family="Arial,sans-serif" font-size="15" fill="#17243a" font-weight="normal">Oba +</text>
+<line x1="1358" y1="875" x2="1408" y2="875" stroke="#c17a22" stroke-width="2.5"/>
+<circle cx="1408" cy="875" r="3" fill="#c17a22"/>
+<text x="1417" y="880" font-family="Arial,sans-serif" font-size="14" fill="#c17a22" font-weight="bold">5V</text>
+<text x="1248" y="915" font-family="Arial,sans-serif" font-size="15" fill="#17243a" font-weight="normal">Oba GND</text>
+<line x1="1358" y1="910" x2="1408" y2="910" stroke="#176b54" stroke-width="2.5"/>
+<circle cx="1408" cy="910" r="3" fill="#176b54"/>
+<text x="1417" y="915" font-family="Arial,sans-serif" font-size="14" fill="#176b54" font-weight="bold">GND</text>
+<text x="1248" y="950" font-family="Arial,sans-serif" font-size="15" fill="#17243a" font-weight="normal">Skręt SIG</text>
+<line x1="1358" y1="945" x2="1408" y2="945" stroke="#386faf" stroke-width="2.5"/>
+<circle cx="1408" cy="945" r="3" fill="#386faf"/>
+<text x="1417" y="950" font-family="Arial,sans-serif" font-size="14" fill="#386faf" font-weight="bold">SERVO_1</text>
+<text x="1248" y="985" font-family="Arial,sans-serif" font-size="15" fill="#17243a" font-weight="normal">Biegi SIG</text>
+<line x1="1358" y1="980" x2="1408" y2="980" stroke="#386faf" stroke-width="2.5"/>
+<circle cx="1408" cy="980" r="3" fill="#386faf"/>
+<text x="1417" y="985" font-family="Arial,sans-serif" font-size="14" fill="#386faf" font-weight="bold">SERVO_2</text>
+<rect x="635" y="1070" width="510" height="160" rx="12" fill="#ffffff" stroke="#97a9bc" stroke-width="2"/>
+<rect x="635" y="1070" width="510" height="42" rx="11" fill="#eaf1f7"/>
+<text x="650" y="1097" font-family="Arial,sans-serif" font-size="18" fill="#17243a" font-weight="bold">ESP32-CAM + OV2640</text>
+<text x="650" y="1216" font-family="Arial,sans-serif" font-size="13" fill="#637589" font-weight="normal">Status do ESP32-S3: protokół jeszcze niewybrany.</text>
+<text x="653" y="1140" font-family="Arial,sans-serif" font-size="15" fill="#17243a" font-weight="normal">5V</text>
+<line x1="763" y1="1135" x2="813" y2="1135" stroke="#c17a22" stroke-width="2.5"/>
+<circle cx="813" cy="1135" r="3" fill="#c17a22"/>
+<text x="822" y="1140" font-family="Arial,sans-serif" font-size="14" fill="#c17a22" font-weight="bold">5V</text>
+<text x="653" y="1175" font-family="Arial,sans-serif" font-size="15" fill="#17243a" font-weight="normal">GND</text>
+<line x1="763" y1="1170" x2="813" y2="1170" stroke="#176b54" stroke-width="2.5"/>
+<circle cx="813" cy="1170" r="3" fill="#176b54"/>
+<text x="822" y="1175" font-family="Arial,sans-serif" font-size="14" fill="#176b54" font-weight="bold">GND</text>
+<text x="890" y="1175" font-family="Arial,sans-serif" font-size="14" fill="#386faf" font-weight="bold">Wi-Fi → telefon</text>
+<rect x="40" y="1070" width="510" height="160" rx="12" fill="#ffffff" stroke="#97a9bc" stroke-width="2"/>
+<rect x="40" y="1070" width="510" height="42" rx="11" fill="#eaf1f7"/>
+<text x="55" y="1097" font-family="Arial,sans-serif" font-size="18" fill="#17243a" font-weight="bold">LEGENDA POŁĄCZEŃ</text>
+<text x="58" y="1130" font-family="Arial,sans-serif" font-size="15" fill="#bc5546" font-weight="normal">BAT+ / VBAT: przed / po wyłączniku</text>
+<text x="58" y="1160" font-family="Arial,sans-serif" font-size="15" fill="#176b54" font-weight="normal">GND: wspólna masa  ·  5V / 3V3: zasilanie</text>
+<text x="58" y="1190" font-family="Arial,sans-serif" font-size="15" fill="#386faf" font-weight="normal">Niebieskie etykiety: sygnały sterujące</text>
+<rect x="1230" y="1070" width="510" height="160" rx="12" fill="#ffffff" stroke="#97a9bc" stroke-width="2"/>
+<rect x="1230" y="1070" width="510" height="42" rx="11" fill="#eaf1f7"/>
+<text x="1245" y="1097" font-family="Arial,sans-serif" font-size="18" fill="#17243a" font-weight="bold">OTWARTE KWESTIE</text>
+<text x="1248" y="1125" font-family="Arial,sans-serif" font-size="14" fill="#9a5417" font-weight="normal">Ładowanie, zabezpieczenia i 5 V pod obciążeniem</text>
+<text x="1248" y="1154" font-family="Arial,sans-serif" font-size="14" fill="#9a5417" font-weight="normal">USB + zewnętrzne 5 V: najpierw sprawdzić płytki</text>
+<text x="1248" y="1183" font-family="Arial,sans-serif" font-size="14" fill="#9a5417" font-weight="normal">Tory FOUT i ADC oraz piny serw: do ustalenia</text>
+<text x="48" y="1298" font-family="Arial,sans-serif" font-size="16" fill="#364d62" font-weight="normal">Odczyt: każdy pin z etykietą GND łączy się ze wspólną masą; pozostałe etykiety łączą tylko identyczne nazwy.</text>
+<text x="48" y="1327" font-family="Arial,sans-serif" font-size="16" fill="#364d62" font-weight="normal">Schemat pokazuje połączenia logiczne. Przekroje przewodów, prądy, wartości zabezpieczeń i montaż wymagają osobnej weryfikacji.</text>
+<text x="48" y="1376" font-family="Arial,sans-serif" font-size="15" fill="#637589" font-weight="normal">Szczegóły i kolejność uruchamiania: docs/schemat-wstepny.md</text>
+</svg>

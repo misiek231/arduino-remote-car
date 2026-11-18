@@ -1,0 +1,185 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1510" viewBox="0 0 1800 1510"><rect width="1800" height="1510" fill="#f6f8fb"/><style>text{font-family:Arial,sans-serif;fill:#1c2c3e}.title{font-size:30px;font-weight:700}.subtitle{font-size:16px;fill:#53677c}.box{fill:white;stroke:#99aabc;stroke-width:2}.band{fill:#eaf0f6}.head{font-size:18px;font-weight:700}.label{font-size:16px}.net{font-size:15px;font-weight:700;fill:#24618d}.note{font-size:14px;fill:#75512b}.wire{stroke:#325b78;stroke-width:3;fill:none}.node{fill:#325b78}.res{fill:white;stroke:#325b78;stroke-width:2}.small{font-size:14px;fill:#51677a}</style>
+<text x="45" y="50" class="title">SAMOCHÓD RC · SCHEMAT POŁĄCZEŃ</text>
+<text x="45" y="80" class="subtitle">Stan: listopad 2026 · te same nazwy sieci oznaczają elektryczne połączenie</text>
+<text x="45" y="107" class="note">Narysowano połączenia i wartości z ustaleń; warianty niezidentyfikowanych modułów sprawdzić przed montażem.</text>
+<rect x="35" y="135" width="540" height="175" rx="10" class="box"/><rect x="35" y="135" width="540" height="39" rx="10" class="band"/>
+<text x="50" y="161" class="head">PAKIET 2S + BMS</text>
+<text x="55" y="205" class="label">P+</text>
+<path d="M165 200 L210 200" class="wire"/>
+<circle cx="210" cy="200" r="3" class="node"/>
+<text x="220" y="205" class="net">BAT+</text>
+<text x="55" y="250" class="label">P−</text>
+<path d="M165 245 L210 245" class="wire"/>
+<circle cx="210" cy="245" r="3" class="node"/>
+<text x="220" y="250" class="net">GND</text>
+<text x="55" y="288" class="small">Pakiet Li-ion 2S: maks. 8,4 V; ogniwa podłączyć wg BMS.</text>
+<rect x="35" y="330" width="540" height="200" rx="10" class="box"/><rect x="35" y="330" width="540" height="39" rx="10" class="band"/>
+<text x="50" y="356" class="head">ŁADOWANIE USB-C Z MASAŻERA</text>
+<text x="55" y="400" class="label">B+</text>
+<path d="M165 395 L210 395" class="wire"/>
+<circle cx="210" cy="395" r="3" class="node"/>
+<text x="220" y="400" class="net">BAT+</text>
+<text x="55" y="445" class="label">GND</text>
+<path d="M165 440 L210 440" class="wire"/>
+<circle cx="210" cy="440" r="3" class="node"/>
+<text x="220" y="445" class="net">GND</text>
+<text x="55" y="480" class="note">Pozostałe linie: PWM1, PWM2, STAT, P_ON — nieustalone.</text>
+<text x="55" y="510" class="small">Nie zakładamy jazdy podczas ładowania.</text>
+<rect x="35" y="550" width="540" height="230" rx="10" class="box"/><rect x="35" y="550" width="540" height="39" rx="10" class="band"/>
+<text x="50" y="576" class="head">PRZETWORNICA STEP-DOWN XL4015</text>
+<text x="55" y="620" class="label">IN+</text>
+<path d="M165 615 L210 615" class="wire"/>
+<circle cx="210" cy="615" r="3" class="node"/>
+<text x="220" y="620" class="net">BAT+</text>
+<text x="55" y="655" class="label">IN−</text>
+<path d="M165 650 L210 650" class="wire"/>
+<circle cx="210" cy="650" r="3" class="node"/>
+<text x="220" y="655" class="net">GND</text>
+<text x="55" y="690" class="label">OUT+</text>
+<path d="M165 685 L210 685" class="wire"/>
+<circle cx="210" cy="685" r="3" class="node"/>
+<text x="220" y="690" class="net">+5V</text>
+<text x="55" y="725" class="label">OUT−</text>
+<path d="M165 720 L210 720" class="wire"/>
+<circle cx="210" cy="720" r="3" class="node"/>
+<text x="220" y="725" class="net">GND</text>
+<text x="55" y="758" class="note">Sprawdzić wspólną masę konkretnego modułu i wydajność pod obciążeniem.</text>
+<rect x="620" y="135" width="500" height="400" rx="10" class="box"/><rect x="620" y="135" width="500" height="39" rx="10" class="band"/>
+<text x="635" y="161" class="head">ESP32-S3 · STEROWNIK GŁÓWNY</text>
+<text x="640" y="205" class="label">5V IN</text>
+<path d="M750 200 L795 200" class="wire"/>
+<circle cx="795" cy="200" r="3" class="node"/>
+<text x="805" y="205" class="net">+5V</text>
+<text x="640" y="240" class="label">GND</text>
+<path d="M750 235 L795 235" class="wire"/>
+<circle cx="795" cy="235" r="3" class="node"/>
+<text x="805" y="240" class="net">GND</text>
+<text x="640" y="275" class="label">3V3</text>
+<path d="M750 270 L795 270" class="wire"/>
+<circle cx="795" cy="270" r="3" class="node"/>
+<text x="805" y="275" class="net">3V3_OLED</text>
+<text x="640" y="310" class="label">GPIO 4</text>
+<path d="M750 305 L795 305" class="wire"/>
+<circle cx="795" cy="305" r="3" class="node"/>
+<text x="805" y="310" class="net">OLED_SDA</text>
+<text x="640" y="345" class="label">GPIO 5</text>
+<path d="M750 340 L795 340" class="wire"/>
+<circle cx="795" cy="340" r="3" class="node"/>
+<text x="805" y="345" class="net">OLED_SCL</text>
+<text x="640" y="380" class="label">GPIO 8</text>
+<path d="M750 375 L795 375" class="wire"/>
+<circle cx="795" cy="375" r="3" class="node"/>
+<text x="805" y="380" class="net">SERWO_SKRET</text>
+<text x="640" y="415" class="label">GPIO 17</text>
+<path d="M750 410 L795 410" class="wire"/>
+<circle cx="795" cy="410" r="3" class="node"/>
+<text x="805" y="415" class="net">SERWO_BIEGI</text>
+<text x="640" y="450" class="label">GPIO 10</text>
+<path d="M750 445 L795 445" class="wire"/>
+<circle cx="795" cy="445" r="3" class="node"/>
+<text x="805" y="450" class="net">FOUT_ADC</text>
+<text x="640" y="485" class="label">GPIO 11</text>
+<path d="M750 480 L795 480" class="wire"/>
+<circle cx="795" cy="480" r="3" class="node"/>
+<text x="805" y="485" class="net">CTRL_PWM</text>
+<text x="640" y="520" class="label">GPIO 12</text>
+<path d="M750 515 L795 515" class="wire"/>
+<circle cx="795" cy="515" r="3" class="node"/>
+<text x="805" y="520" class="net">CTRL_DIR</text>
+<rect x="1170" y="135" width="580" height="250" rx="10" class="box"/><rect x="1170" y="135" width="580" height="39" rx="10" class="band"/>
+<text x="1185" y="161" class="head">SILNIK Z MASAŻERA · ELEKTRONIKA WEWNĘTRZNA</text>
+<text x="1190" y="205" class="label">M+</text>
+<path d="M1300 200 L1345 200" class="wire"/>
+<circle cx="1345" cy="200" r="3" class="node"/>
+<text x="1355" y="205" class="net">BAT+</text>
+<text x="1190" y="245" class="label">GN</text>
+<path d="M1300 240 L1345 240" class="wire"/>
+<circle cx="1345" cy="240" r="3" class="node"/>
+<text x="1355" y="245" class="net">GND</text>
+<text x="1190" y="285" class="label">PWM</text>
+<path d="M1300 280 L1345 280" class="wire"/>
+<circle cx="1345" cy="280" r="3" class="node"/>
+<text x="1355" y="285" class="net">MOTOR_PWM</text>
+<text x="1190" y="325" class="label">NC / DIR</text>
+<path d="M1300 320 L1345 320" class="wire"/>
+<circle cx="1345" cy="320" r="3" class="node"/>
+<text x="1355" y="325" class="net">MOTOR_DIR</text>
+<text x="1190" y="365" class="label">FOUT</text>
+<path d="M1300 360 L1345 360" class="wire"/>
+<circle cx="1345" cy="360" r="3" class="node"/>
+<text x="1355" y="365" class="net">FOUT_RAW</text>
+<rect x="1170" y="410" width="580" height="245" rx="10" class="box"/><rect x="1170" y="410" width="580" height="39" rx="10" class="band"/>
+<text x="1185" y="436" class="head">OLED · I²C</text>
+<text x="1190" y="475" class="label">VCC</text>
+<path d="M1300 470 L1345 470" class="wire"/>
+<circle cx="1345" cy="470" r="3" class="node"/>
+<text x="1355" y="475" class="net">3V3_OLED</text>
+<text x="1190" y="515" class="label">GND</text>
+<path d="M1300 510 L1345 510" class="wire"/>
+<circle cx="1345" cy="510" r="3" class="node"/>
+<text x="1355" y="515" class="net">GND</text>
+<text x="1190" y="555" class="label">SDA</text>
+<path d="M1300 550 L1345 550" class="wire"/>
+<circle cx="1345" cy="550" r="3" class="node"/>
+<text x="1355" y="555" class="net">OLED_SDA</text>
+<text x="1190" y="595" class="label">SCL</text>
+<path d="M1300 590 L1345 590" class="wire"/>
+<circle cx="1345" cy="590" r="3" class="node"/>
+<text x="1355" y="595" class="net">OLED_SCL</text>
+<rect x="1170" y="680" width="580" height="190" rx="10" class="box"/><rect x="1170" y="680" width="580" height="39" rx="10" class="band"/>
+<text x="1185" y="706" class="head">SERWA SG90 · ZASILANIE 5 V</text>
+<text x="1190" y="745" class="label">V+ (oba)</text>
+<path d="M1300 740 L1345 740" class="wire"/>
+<circle cx="1345" cy="740" r="3" class="node"/>
+<text x="1355" y="745" class="net">+5V</text>
+<text x="1190" y="780" class="label">GND (oba)</text>
+<path d="M1300 775 L1345 775" class="wire"/>
+<circle cx="1345" cy="775" r="3" class="node"/>
+<text x="1355" y="780" class="net">GND</text>
+<text x="1190" y="815" class="label">Sygnał skręt</text>
+<path d="M1300 810 L1345 810" class="wire"/>
+<circle cx="1345" cy="810" r="3" class="node"/>
+<text x="1355" y="815" class="net">SERWO_SKRET</text>
+<text x="1190" y="850" class="label">Sygnał biegi</text>
+<path d="M1300 845 L1345 845" class="wire"/>
+<circle cx="1345" cy="845" r="3" class="node"/>
+<text x="1355" y="850" class="net">SERWO_BIEGI</text>
+<rect x="1170" y="895" width="580" height="150" rx="10" class="box"/><rect x="1170" y="895" width="580" height="39" rx="10" class="band"/>
+<text x="1185" y="921" class="head">ESP32-CAM · AI THINKER + OV2640</text>
+<text x="1190" y="960" class="label">5V</text>
+<path d="M1300 955 L1345 955" class="wire"/>
+<circle cx="1345" cy="955" r="3" class="node"/>
+<text x="1355" y="960" class="net">+5V</text>
+<text x="1190" y="1000" class="label">GND</text>
+<path d="M1300 995 L1345 995" class="wire"/>
+<circle cx="1345" cy="995" r="3" class="node"/>
+<text x="1355" y="1000" class="net">GND</text>
+<text x="1190" y="1023" class="small">Obraz i status przesyłane przez Wi-Fi.</text>
+<rect x="35" y="815" width="1085" height="300" rx="10" class="box"/><rect x="35" y="815" width="1085" height="39" rx="10" class="band"/><text x="50" y="841" class="head">STEROWANIE PWM I KIERUNKIEM · 2 × 2N2222A</text><text x="55" y="920" class="net">CTRL_PWM</text><path d="M190 915 H230" class="wire"/><rect x="230" y="904" width="75" height="22" class="res"/><text x="245" y="897" class="small">10 kΩ</text><path d="M305 915 H485" class="wire"/><circle cx="370" cy="915" r="4" class="node"/><path d="M370 915 V930" class="wire"/><rect x="359" y="930" width="22" height="32" class="res"/><text x="390" y="953" class="small">100 kΩ</text><path d="M370 962 V972" class="wire"/><text x="355" y="990" class="net">GND</text><text x="450" y="905" class="small">B</text><circle cx="505" cy="915" r="26" class="res"/><path d="M485 901 V929 M485 907 L507 890 M485 923 L507 940 M507 940 V972 M507 890 H570" class="wire"/><text x="492" y="990" class="net">GND</text><text x="520" y="920" class="small">2N2222A</text><text x="515" y="885" class="small">C</text><text x="515" y="960" class="small">E</text><path d="M570 890 H710" class="wire"/><text x="720" y="895" class="net">MOTOR_PWM</text><text x="55" y="1030" class="net">CTRL_DIR</text><path d="M190 1025 H230" class="wire"/><rect x="230" y="1014" width="75" height="22" class="res"/><text x="245" y="1007" class="small">10 kΩ</text><path d="M305 1025 H485" class="wire"/><circle cx="370" cy="1025" r="4" class="node"/><path d="M370 1025 V1040" class="wire"/><rect x="359" y="1040" width="22" height="32" class="res"/><text x="390" y="1063" class="small">100 kΩ</text><path d="M370 1072 V1082" class="wire"/><text x="355" y="1100" class="net">GND</text><text x="450" y="1015" class="small">B</text><circle cx="505" cy="1025" r="26" class="res"/><path d="M485 1011 V1039 M485 1017 L507 1000 M485 1033 L507 1050 M507 1050 V1082 M507 1000 H570" class="wire"/><text x="492" y="1100" class="net">GND</text><text x="520" y="1030" class="small">2N2222A</text><text x="515" y="995" class="small">C</text><text x="515" y="1070" class="small">E</text><rect x="570" y="989" width="66" height="22" class="res"/><text x="580" y="983" class="small">330 Ω</text><path d="M636 1000 H710" class="wire"/><text x="720" y="1005" class="net">MOTOR_DIR</text><text x="55" y="1100" class="small">Sprawdzić kolejność nóżek E/B/C tranzystora; GPIO HIGH ściąga linię silnika do masy.</text>
+<rect x="35" y="1140" width="1085" height="200" rx="10" class="box"/><rect x="35" y="1140" width="1085" height="39" rx="10" class="band"/>
+<text x="50" y="1166" class="head">DZIELNIK FOUT · WERSJA SPRAWDZONA W TEŚCIE</text>
+<text x="55" y="1220" class="net">FOUT_RAW</text>
+<path d="M165 1215 L230 1215" class="wire"/>
+<rect x="230" y="1204" width="85" height="22" class="res"/>
+<text x="244" y="1196" class="small">10 kΩ</text>
+<path d="M315 1215 L470 1215" class="wire"/>
+<circle cx="400" cy="1215" r="4" class="node"/>
+<text x="485" y="1220" class="net">FOUT_ADC → GPIO 10</text>
+<path d="M400 1215 L400 1240" class="wire"/>
+<rect x="389" y="1240" width="22" height="35" class="res"/><path d="M400 1275 V1280" class="wire"/><rect x="389" y="1280" width="22" height="35" class="res"/>
+<text x="420" y="1263" class="small">10 kΩ</text>
+<text x="420" y="1302" class="small">5 kΩ</text>
+<path d="M400 1315 L400 1325" class="wire"/>
+<text x="455" y="1320" class="net">GND</text>
+<path d="M400 1325 L445 1325" class="wire"/>
+<text x="650" y="1230" class="small">Dzielnik: 10 kΩ / (10 kΩ + 5 kΩ).</text>
+<text x="650" y="1258" class="note">Ochrona przed przepięciami: do weryfikacji.</text>
+<rect x="1170" y="1070" width="580" height="270" rx="10" class="box"/><rect x="1170" y="1070" width="580" height="39" rx="10" class="band"/>
+<text x="1185" y="1096" class="head">POMIAR NAPIĘCIA PAKIETU · PRZYSZŁOŚĆ</text>
+<text x="1190" y="1140" class="label">Planowany pomiar BAT+ przez osobny dzielnik i ADC.</text>
+<text x="1190" y="1175" class="note">Nie jest podłączony ani obsługiwany w kodzie.</text>
+<text x="1190" y="1210" class="small">Pin, wartości, ochrona i kalibracja: do ustalenia.</text>
+<text x="40" y="1390" class="note">UWAGI: obciążenie i połączenia zasilania potwierdzić pomiarami; unikać jednoczesnego zasilania USB i 5 V bez sprawdzenia płytki.</text>
+<text x="40" y="1420" class="note">Wspólne GND: silnik, BMS, przetwornica, ESP i serwa. Linie sygnałowe 5 V nie łączą się bezpośrednio z GPIO 3,3 V.</text>
+<text x="40" y="1450" class="small">Praca silnika i zmiana kierunku: przetestowane; FOUT nie jest skalibrowanym RPM.</text>
+</svg>
