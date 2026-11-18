@@ -3,6 +3,12 @@
 #include "Config.h"
 #include "common.h"
 
+#define PIN_WIFI_LED 13  // or any digital pin you want
+
+unsigned long lastLedToggle = 0;
+bool ledState = false;
+const unsigned long BLINK_INTERVAL = 300; // ms
+
 struct ATCommand {
   String command;
   String expectedReply;
@@ -30,7 +36,25 @@ WiFiSetupState wifiState = WIFI_RESETTING;
 unsigned long wifiRetryTimer = 0;
 bool wifiConnected = false;
 
-void startATCommand(const String& cmd, const String& expected, unsigned long timeoutMs = 2000) {
+void setupWifi(){
+  pinMode(PIN_WIFI_LED, OUTPUT);
+  digitalWrite(PIN_WIFI_LED, LOW);
+}
+
+void updateWifiLED() {
+  if (wifiConnected) {
+    digitalWrite(PIN_WIFI_LED, HIGH);  // solid ON
+  } else {
+    unsigned long now = millis();
+    if (now - lastLedToggle >= BLINK_INTERVAL) {
+      ledState = !ledState;
+      digitalWrite(PIN_WIFI_LED, ledState ? HIGH : LOW);
+      lastLedToggle = now;
+    }
+  }
+}
+
+void startATCommand(const String& cmd, const String& expected, unsigned long timeoutMs = 30000) {
   // Start new command
   currentAT.command = cmd;
   currentAT.expectedReply = expected;
@@ -46,47 +70,56 @@ void startATCommand(const String& cmd, const String& expected, unsigned long tim
 }
 
 bool processATResponse() {
-  if (!currentAT.active) return false;
+    static String receivedBuffer = ""; // persists between calls
 
-  Stream& serial = getSerial();
+    if (!currentAT.active) return false;
 
-  while (serial.available()) {
-    char ch = serial.read();
+    Stream& serial = getSerial();
 
-    if (ch == currentAT.expectedReply[currentAT.matched]) {
-      currentAT.matched++;
-      if (currentAT.matched == currentAT.expectedReply.length()) {
-        currentAT.active = false;
-        
-        debugLog("*** Match success");
-        return true;
-      }
-    } else {
-      currentAT.matched = 0;
+    while (serial.available()) {
+        char ch = serial.read();
+        receivedBuffer += ch;  // store everything
+
+        if (ch == currentAT.expectedReply[currentAT.matched]) {
+            currentAT.matched++;
+            if (currentAT.matched == currentAT.expectedReply.length()) {
+                currentAT.active = false;
+
+                debugLog("*** Match success");
+                debugLog("Full response: " + receivedBuffer);
+                receivedBuffer = ""; // reset for next command
+                return true;
+            }
+        } else {
+            currentAT.matched = 0;
+        }
     }
-  }
 
-  // Check for timeout
-  if (millis() - currentAT.startTime > currentAT.timeout) {
-    currentAT.active = false;
-#if USE_SOFT_SERIAL
-    Serial.println("*** Match timeout");
-#endif
+    // Check for timeout
+    if (millis() - currentAT.startTime > currentAT.timeout) {
+        currentAT.active = false;
+
+        debugLog("*** Match timeout");
+        debugLog("Full response: " + receivedBuffer); // print whatever we got
+        receivedBuffer = ""; // reset
+        return false;
+    }
+
+    // Still waiting
     return false;
-  }
-
-  // Still waiting
-  return false;
 }
 
 bool updateWiFiSetup() {
+
+  updateWifiLED();
+
   if (currentAT.active && !processATResponse()) {
     return wifiConnected; // Wait for current command to finish
   }
 
   switch (wifiState) {
     case WIFI_RESETTING:
-      startATCommand("AT+RST", "Ready", 5000);
+      startATCommand("AT+RST", "Ready");
       wifiState = WIFI_WAIT_READY;
       break;
 

@@ -1,4 +1,5 @@
 #include "common.h"
+#include "Config.h"
 #include <SoftwareSerial.h>
 
 #if USE_SOFT_SERIAL
@@ -10,8 +11,8 @@ void setupSerial(){
   Serial.begin(9600);
 
   #if USE_SOFT_SERIAL
-    espSerial.begin(9600);
     Serial.println("Debug log enabled and initialized");
+    espSerial.begin(9600);
   #endif
 }
 

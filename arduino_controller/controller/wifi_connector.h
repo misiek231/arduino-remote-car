@@ -9,4 +9,6 @@ bool SendCommand(const String& cmd, const String& ack);
 void setupWiFi();
 bool updateWiFiSetup();
 
+void setupWifi();
+void updateWifiLED();
 #endif // WIFI_H

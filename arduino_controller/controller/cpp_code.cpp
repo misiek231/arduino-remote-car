@@ -31,76 +31,86 @@ unsigned long lastCommandTime = 0;
 const unsigned long COMMAND_TIMEOUT = 200; // ms
 
 void processInput(const String& message);
-void updateEngine(char command);
+void updateEngineState(char command);
 void updateEngineEase();
-void updateGear(char command);
-void smoothMoveServo(Servo& servo, int target);
+void updateGearState(char command);
+void updateSteerState(Servo& servo, int target);
 void setupServos();
+void updateAutostop();
+bool readInput(String* input);
 
 // === Setup ===
 void setup_cpp() {
+  
   setupConfig();
   setupSerial();
+  setupWifi();
   setupServos();
 }
 
 // === Loop ===
 void loop_cpp() {
 
-  bool connected = updateWiFiSetup();  
+  bool connected = updateWiFiSetup();
 
   if(!connected) return;
 
+  String input = "";
 
+  bool stringReady = readInput(&input);
 
   if (stringReady) {
-    debugLog(incomingString);
-    lastCommandTime = millis();  // Update timestamp on new command
-    processInput(incomingString);
-    incomingString = "";
-    stringReady = false;
+    processInput(input);
   }
 
   updateEngineEase(); // Non-blocking servo retract logic
-
-    // Auto-stop if no command for over 200ms
-  if (millis() - lastCommandTime > COMMAND_TIMEOUT) {
-      updateEngine('c'); // Stop the engine
-  }
+  updateAutostop();
 }
 
-void readInput(String* input){
-    static String incomingString = "";
-  static bool stringReady = false;
+void updateAutostop(){
+    
+  if (millis() - lastCommandTime < COMMAND_TIMEOUT) return;
+  // Auto-stop if no command for over 200ms
+  updateEngineState('c'); // Stop the engine
+}
 
+bool readInput(String* input){
+  static bool stringReady = false;
 
   if(stringReady == true){
     stringReady = false;
-    incomingString = "";
+    *input = "";
   }
 
   Stream& serialStream = getSerial();
 
   while (serialStream.available()) {
+    
     char c = serialStream.read();
+
+    if (c == '\r') continue;
+
     if (c == '\n') {
-      stringReady = incomingString.length() > 0;
+      stringReady = (*input).length() > 0;
       break;
-    } else if (c != '\r') {
-      incomingString += c;
-    }
+    } 
+
+    *input += c;
   }
 
   if(!stringReady) return false;
 
-  input* = incomingString;
   return true;
 }
 
 // === Process incoming command ===
 void processInput(const String& message) {
 
-  // incoming message example: 110:w:v
+  debugLog("RX: " + message);
+  lastCommandTime = millis();  // Update timestamp on new command
+
+  // Format: [ID]:[steer]:[engine]:[gear]
+  // Example: 110:90:w:v
   int startIndex = message.indexOf(':') + 1;
   String input = message.substring(startIndex);
 
@@ -113,17 +123,17 @@ void processInput(const String& message) {
   char engine = input.charAt(firstColon + 1);
   char gear = input.charAt(secondColon + 1);
 
-  debugLog("Steer: "); debugLog(String(steer));
-  debugLog("Engine: "); debugLog(String(engine));
-  debugLog("Gear: "); debugLog(String(gear));
+  debugLog("Steer: " + String(steer));
+  debugLog("Engine: " + String(engine));
+  debugLog("Gear: " + String(gear));
 
-  smoothMoveServo(steeringServo, steer);
-  updateEngine(engine);
-  updateGear(gear);
+  updateSteerState(steeringServo, steer);
+  updateEngineState(engine);
+  updateGearState(gear);
 }
 
 // === Update engine with push-and-retract easing ===
-void updateEngine(char command) {
+void updateEngineState(char command) {
   if (command == engineEase.currentCommand) return;
   engineEase.currentCommand = command;
 
@@ -151,13 +161,13 @@ void updateEngineEase() {
 }
 
 // === Update gear servo ===
-void updateGear(char command) {
+void updateGearState(char command) {
   int offset = gearOffsetTable[command];
   gearServo.write(gearDefaultPos + offset);
 }
 
 // === Smoothly move servo (used for steering) ===
-void smoothMoveServo(Servo& servo, int target) {
+void updateSteerState(Servo& servo, int target) {
   int current = servo.read();
   while (current != target) {
     current += (current < target) ? 1 : -1;
