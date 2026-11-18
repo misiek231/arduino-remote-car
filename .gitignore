@@ -1,2 +1,15 @@
-﻿node_web_rtc/node_modules
-arduino_controller/controller/Config.h
+# Lokalne konfiguracje i zależności
+**/node_modules/
+**/.pio/
+**/.vscode/
+**/include/wifi_credentials.h
+**/Config.h
+# Pozostałości po przeniesieniu projektów, otwarte w lokalnym VS Code
+/esp-test/
+/esp-cam-test/
+# Lokalne pliki Visual Micro
+legacy/CarController/**/__vm/
+**/Config.local.cpp
+**/Config.local.txt
+**/.vs/
+**/Config.example.local.txt

@@ -1,5 +1,14 @@
-#include "Config.h"
-#include <stdint.h>
+#ifndef CONFIG_H
+#define CONFIG_H
+
+// === Configuration ===
+#define ESP_COMMAND_TIMEOUT 20000 // ms
+#define USE_SOFT_SERIAL 0
+
+// === Pin Configuration ===
+#define STEERING_SERVO_PIN 9
+#define ENGINE_SERVO_PIN 10
+#define GEAR_SERVO_PIN 11
 
 // === Defaults ===
 const int steeringDefaultPos = 90;
@@ -11,14 +20,14 @@ const int STEERING_MIN = 40;
 const int STEERING_MAX = 140;
 
 // === WiFi Configuration ===
-const char* WIFI_SSID = "UPC2558138";
-const char* WIFI_PASSWORD = "Mpuff7bpjeku";
+const char* WIFI_SSID = "WPISZ_NAZWE_SIECI";
+const char* WIFI_PASSWORD = "WPISZ_HASLO";
 
 // === Engine Offset Tables ===
+#include <stdint.h>
 
 int8_t engineOffsetTable[128] = { 0 };             // Push offset
 int8_t engineEaseTargetOffsetTable[128] = { 0 };   // Retract offset
-int8_t gearOffsetTable[128] = { 0 };
 
 inline void setupEngineOffsets() {
   engineOffsetTable['w'] = 30;    // Push forward
@@ -32,13 +41,17 @@ inline void setupEngineOffsets() {
 }
 
 // === Gear Mapping Table ===
+int8_t gearOffsetTable[128] = { 0 };
+
 inline void setupGearOffsets() {
   gearOffsetTable['v'] = 50;    // Gear 1
   gearOffsetTable['b'] = -50;   // Gear 2
   gearOffsetTable['c'] = 0;     // Neutral
 }
 
-void setupConfig() {
+inline void setupConfig() {
   setupEngineOffsets();
   setupGearOffsets();
 }
+
+#endif // CONFIG_H
